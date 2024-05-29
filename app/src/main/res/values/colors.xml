@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="up">#58eb34</color>
+    <color name="down">#f51111</color>
+    <color name="stock_value">#FFFFFF</color>
+    <color name="stock_name">#AAAAAA</color>
+    <color name="stock_symbol">#FFFFFF</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="circular_background">#444444</color>
+</resources>
