@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
             Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
 
-        )
+            )
 
         val adapter = StockAdapter(this, stockList)
         listView.adapter = adapter
