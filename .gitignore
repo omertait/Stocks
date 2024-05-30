@@ -17,6 +17,4 @@ gradlew
 gradle.properties
 settings.gradle.kts
 gradlew.bat
-gradle/
-build.gradle.kts
 .idea/
