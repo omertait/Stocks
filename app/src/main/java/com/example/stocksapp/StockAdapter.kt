@@ -12,6 +12,7 @@ import com.example.stocksapp.R
 class StockAdapter(
     private val context: Context,
     private val stockList: List<Stock>
+
 ) : RecyclerView.Adapter<StockAdapter.StockViewHolder>() {
 
     class StockViewHolder(view: View) : RecyclerView.ViewHolder(view) {

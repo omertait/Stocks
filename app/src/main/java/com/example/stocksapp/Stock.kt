@@ -6,3 +6,16 @@ data class Stock(
     val value: String,
     val change: String
 )
+
+object ItemsManager {
+
+    val items : MutableList<Stock> = mutableListOf()
+
+    fun add(item: Stock) {
+        items.add(item)
+    }
+
+    fun remove(index:Int){
+        items.removeAt(index)
+    }
+}
