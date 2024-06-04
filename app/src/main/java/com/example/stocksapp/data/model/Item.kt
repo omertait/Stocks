@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "items_table")
 data class Item(
-//    @ColumnInfo(name = "stockName")
-//    val stockName: String,
+    @ColumnInfo(name = "stockName")
+    val stockName: String,
 
     @ColumnInfo(name = "stockSymbol")
     val stockSymbol: String,

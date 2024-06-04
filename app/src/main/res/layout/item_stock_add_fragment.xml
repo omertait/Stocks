@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="add_a_new_stock_to_follow"
+            android:text="@string/Add_Title"
             android:textColor="@color/stock_symbol"
             android:textSize="24sp" />
 
@@ -64,8 +64,8 @@
                 android:background="@color/stock_symbol"
                 android:enabled="true"
                 android:hint="stock_symbol"
-                android:textColor="@color/stock_symbol"
-                android:textColorHint="@color/stock_symbol"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 app:elevation="3dp"
                 app:strokeWidth="2dp" />
         </com.google.android.material.textfield.TextInputLayout>

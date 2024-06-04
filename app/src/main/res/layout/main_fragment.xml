@@ -11,7 +11,7 @@
         android:id="@+id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Stocks"
+        android:text="@string/Home_Title"
         android:textColor="@color/stock_symbol"
         android:textSize="24sp"
         android:padding="16dp"

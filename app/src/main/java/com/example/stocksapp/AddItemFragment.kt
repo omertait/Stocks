@@ -1,5 +1,6 @@
 package com.example.stocksapp
 
+import Stock
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,11 +21,22 @@ class AddItemFragment : Fragment() {
     ): View? {
         _binding = ItemStockAddFragmentBinding.inflate(inflater, container, false)
 
-        return  binding.root
-    }
+        binding.addBtn.setOnClickListener {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+            val value = binding.stockAmount.text.toString().toFloat() * binding.stockPrice.text.toString().toFloat()
+            // name should set from api call
+            val name = "stock name"
+            val item = Stock(
+                binding.previewImage.id,
+                binding.stockSymbol.text.toString(),
+                name,
+                "$$value",
+                "+2.55%"
+            )
+            ItemsManager.add(item)
+            findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)
+
+        }
 
         binding.bottomNavigation.setOnItemSelectedListener { itemMenu ->
 
@@ -47,6 +59,14 @@ class AddItemFragment : Fragment() {
             }
         }
 
+        return  binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.add)
+        checkedMenuItem.setChecked(true)
 
     }
 

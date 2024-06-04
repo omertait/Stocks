@@ -27,43 +27,16 @@ class MainFragment : Fragment() {
     ): View? {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
 
-        return  binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val stockList = listOf(
-            Stock(R.drawable.blue_circle, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.orange_circle, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.pink_circle, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-            Stock(R.drawable.yellow_circle, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.purple_circle, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.turquoise_circle, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-            Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-            Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-            Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-            Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-
-            )
-            for (s in stockList){
-                ItemsManager.add(s)
-            }
-
-            val adapter = StockAdapter(requireActivity(), ItemsManager.items)
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            binding.recyclerView.adapter = adapter
-
-
+//        val stockList = listOf(
+//            Stock(R.drawable.blue_circle, "AAPL", "Apple", "$145.09", "+2.34%"),
+//            Stock(R.drawable.orange_circle, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
+//            Stock(R.drawable.pink_circle, "AMZN", "Amazon", "$3401.46", "-0.57%"),
+//
+//
+//            )
+//        for (s in stockList){
+//            ItemsManager.add(s)
+//        }
 
         binding.bottomNavigation.setOnItemSelectedListener { itemMenu ->
 
@@ -86,13 +59,39 @@ class MainFragment : Fragment() {
                 else -> false
             }
         }
+
+
+
+
+        return  binding.root
+    }
+
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.home)
+        checkedMenuItem.setChecked(true)
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+
+        // Define the item click callback
+        val itemClickCallback: (Stock) -> Unit = {
+            // Handle item click here
+            findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
+        }
+        binding.recyclerView.adapter = StockAdapter(ItemsManager.items, itemClickCallback)
+
+
         // item movement gestures
         ItemTouchHelper(object : ItemTouchHelper.Callback(){
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
             )= makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
-
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,

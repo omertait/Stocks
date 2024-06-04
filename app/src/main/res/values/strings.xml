@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">StocksApp</string>
+    <string name="Home_Title">My Stocks</string>
+    <string name="Add_Title">add a new stock</string>
     <string name="Home">Home</string>
     <string name="Add">Add</string>
     <string name="Total">Total</string>

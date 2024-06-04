@@ -15,14 +15,14 @@
 
 
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/total"
         android:enabled="true"
-        android:icon="@drawable/default_image"
+        android:icon="@drawable/total"
         android:title="@string/Total"/>
 
     <item
-        android:id="@+id/addItemButton"
+        android:id="@+id/alerts"
         android:enabled="true"
-        android:icon="@drawable/default_image"
+        android:icon="@drawable/alerts"
         android:title="@string/Alerts"/>
 </menu>
