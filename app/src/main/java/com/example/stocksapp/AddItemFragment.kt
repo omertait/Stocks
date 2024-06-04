@@ -50,10 +50,13 @@ class AddItemFragment : Fragment() {
                     true
                 }
 
-                //                R.id.favorite -> {
-                //                    findNavController().navigate(R.id.action_allItemsFragment_to_favoriteItemsFragment)
-                //                    true
-                //                }
+                R.id.total -> {
+                    true
+                }
+
+                R.id.alerts -> {
+                    true
+                }
 
                 else -> false
             }
