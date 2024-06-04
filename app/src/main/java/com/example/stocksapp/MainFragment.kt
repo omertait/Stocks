@@ -35,12 +35,12 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val stockList = listOf(
-            Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-            Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
-            Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-            Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),
+            Stock(R.drawable.blue_circle, "AAPL", "Apple", "$145.09", "+2.34%"),
+            Stock(R.drawable.orange_circle, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
+            Stock(R.drawable.pink_circle, "AMZN", "Amazon", "$3401.46", "-0.57%"),
+            Stock(R.drawable.yellow_circle, "AAPL", "Apple", "$145.09", "+2.34%"),
+            Stock(R.drawable.purple_circle, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
+            Stock(R.drawable.turquoise_circle, "AMZN", "Amazon", "$3401.46", "-0.57%"),
             Stock(R.drawable.default_image, "AAPL", "Apple", "$145.09", "+2.34%"),
             Stock(R.drawable.default_image, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
             Stock(R.drawable.default_image, "AMZN", "Amazon", "$3401.46", "-0.57%"),

@@ -1,7 +1,7 @@
 package com.example.stocksapp.data.repositories
 
-import com.example.stoks.data.local.ItemDao
-import com.example.stoks.data.model.Item
+import com.example.stocksapp.data.local.ItemDao
+import com.example.stocksapp.data.model.Item
 import javax.inject.Inject
 
 
@@ -9,7 +9,7 @@ class ItemRepository @Inject constructor(private val itemDao: ItemDao) {
 
     fun getItems() = itemDao.getItems()
 
-    fun getFavorites() = itemDao.getFavorites()
+//    fun getFavorites() = itemDao.getFavorites()
 
 
     suspend fun addItem(item: Item) {

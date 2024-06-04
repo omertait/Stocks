@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.stoks.data.model.Item
+import com.example.stocksapp.data.model.Item
 
 
 @Database(entities = arrayOf(Item::class), version = 1, exportSchema = false)

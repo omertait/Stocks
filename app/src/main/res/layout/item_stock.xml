@@ -90,7 +90,7 @@
             android:layout_height="55dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/delete_icon"
-            android:src="@drawable/delete"
+            android:src="@drawable/delete_sweep"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

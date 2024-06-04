@@ -47,99 +47,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:maxLines="3"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Google"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apple"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Netflix"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Intel" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Microsoft"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Facebook"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Samsung"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Amazon"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tesla"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nvidia"
-                    app:chipStrokeColor="@color/white"
-                    app:chipStrokeWidth="1dp" />
-
-
-            </com.google.android.material.chip.ChipGroup>
-        </LinearLayout>
+            android:layout_gravity="center"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/stockSymbolBox"
@@ -154,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/stock_symbol"
-                android:enabled="false"
+                android:enabled="true"
                 android:hint="stock_symbol"
                 android:textColor="@color/stock_symbol"
                 android:textColorHint="@color/stock_symbol"
