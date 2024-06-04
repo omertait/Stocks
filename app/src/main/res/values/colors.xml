@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#0C0C0C</color>
+    <color name="gradient_end">#004173</color>
     <color name="up">#58eb34</color>
     <color name="down">#f51111</color>
     <color name="stock_value">#FFFFFF</color>

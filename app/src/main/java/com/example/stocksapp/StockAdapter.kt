@@ -41,7 +41,7 @@ class StockAdapter(
         val colorResId = if (changeValue > 0) R.color.up else R.color.down
         val color = ContextCompat.getColor(context, colorResId)
 
-        holder.stockValue.setTextColor(color)
+//        holder.stockValue.setTextColor(color)
         holder.stockChange.setTextColor(color)
 
         holder.deleteButton.setOnClickListener {
