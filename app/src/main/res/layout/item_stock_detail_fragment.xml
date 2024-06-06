@@ -32,17 +32,17 @@
                     android:layout_gravity="center"
                     android:src="@drawable/default_image" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.3"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="@color/stock_symbol"
-                android:text="google"
-                android:textSize="22sp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:text="Stock Name"
+                    android:textColor="@color/stock_symbol"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
@@ -66,7 +66,38 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical" >
 
-                <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/stock_symbol_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text="Symbol"
+                            android:textColor="@color/stock_symbol"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/stock_symbol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text="loading"
+                            android:textColor="@color/stock_name"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.3"
@@ -78,30 +109,30 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.33"
+                        android:layout_weight="0.3"
                         android:orientation="vertical"
                         android:padding="3dp">
 
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/today_change_title"
+                            android:id="@+id/today_price_title"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_margin="4dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.55"
                             android:gravity="center"
-                            android:text="change"
+                            android:text="Today Price"
                             android:textColor="@color/stock_symbol"
                             android:textSize="17sp" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/item_price"
+                            android:id="@+id/today_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="10dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.45"
                             android:gravity="center|top"
                             android:text="loading"
                             android:textColor="@color/stock_name"
@@ -114,7 +145,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.33"
+                        android:layout_weight="0.3"
                         android:orientation="vertical"
                         android:padding="3dp">
 
@@ -125,19 +156,19 @@
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_margin="4dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.55"
                             android:gravity="center"
-                            android:text="price"
+                            android:text="Original Price"
                             android:textColor="@color/stock_symbol"
                             android:textSize="17sp" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/today_price"
+                            android:id="@+id/item_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="10dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.45"
                             android:gravity="center|top"
                             android:text="loading"
                             android:textColor="@color/stock_name"
@@ -149,7 +180,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:layout_weight="0.33"
+                        android:layout_weight="0.3"
                         android:layout_gravity="center"
                         android:orientation="vertical"
                         android:padding="3dp">
@@ -161,9 +192,9 @@
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_margin="4dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.55"
                             android:gravity="center"
-                            android:text="@string/Total"
+                            android:text="Amount"
                             android:textColor="@color/stock_symbol"
                             android:textSize="17sp" />
 
@@ -173,9 +204,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="10dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.45"
                             android:gravity="center|top"
-                            android:text="142"
+                            android:text="loading"
                             android:textColor="@color/stock_name"
                             android:textSize="16sp" />
                     </LinearLayout>

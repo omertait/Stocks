@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_mainFragment_to_itemDetailFragment"
             app:destination="@id/itemDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_totalFragment"
+            app:destination="@id/totalFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
@@ -27,10 +33,45 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addItemFragment_to_totalFragment"
+            app:destination="@id/totalFragment" />
+        <action
+            android:id="@+id/action_addItemFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailFragment"
         android:name="com.example.stocksapp.ItemDetailFragment"
         android:label="item_stock_detail_fragment"
         tools:layout="@layout/item_stock_detail_fragment" />
+    <fragment
+        android:id="@+id/totalFragment"
+        android:name="com.example.stocksapp.TotalFragment"
+        android:label="total_fragment"
+        tools:layout="@layout/total_fragment" >
+        <action
+            android:id="@+id/action_totalFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_totalFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_totalFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.stocksapp.InfoFragment"
+        android:label="InfoFragment" >
+        <action
+            android:id="@+id/action_infoFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_totalFragment"
+            app:destination="@id/totalFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
 </navigation>

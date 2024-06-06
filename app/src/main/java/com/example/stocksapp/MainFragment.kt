@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocksapp.databinding.MainFragmentBinding
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.stocksapp.data.model.Item
 
 
 class MainFragment : Fragment() {
@@ -20,23 +22,14 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: MainFragmentViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-
-//        val stockList = listOf(
-//            Stock(R.drawable.blue_circle, "AAPL", "Apple", "$145.09", "+2.34%"),
-//            Stock(R.drawable.orange_circle, "GOOGL", "Alphabet", "$2745.80", "+1.12%"),
-//            Stock(R.drawable.pink_circle, "AMZN", "Amazon", "$3401.46", "-0.57%"),
-//
-//
-//            )
-//        for (s in stockList){
-//            ItemsManager.add(s)
-//        }
 
         binding.bottomNavigation.setOnItemSelectedListener { itemMenu ->
 
@@ -52,10 +45,12 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.total -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_totalFragment)
                     true
                 }
 
                 R.id.alerts -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_infoFragment)
                     true
                 }
 
@@ -69,24 +64,25 @@ class MainFragment : Fragment() {
         return  binding.root
     }
 
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.home)
         checkedMenuItem.setChecked(true)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-        // Define the item click callback
-        val itemClickCallback: (Stock) -> Unit = {
-            // Handle item click here
-            findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
+        viewModel.items?.observe(viewLifecycleOwner) {
+            val itemClickCallback: (Item) -> Unit = {item ->
+                viewModel.setItem(item)
+                findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
+            }
+
+            val deleteClickCallback: (Item) -> Unit = { item ->
+                viewModel.deleteItem(item)
+            }
+
+            binding.recyclerView.adapter = StockAdapter(it, itemClickCallback, deleteClickCallback)
         }
-        binding.recyclerView.adapter = StockAdapter(ItemsManager.items, itemClickCallback)
 
 
         // item movement gestures
@@ -104,9 +100,9 @@ class MainFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                ItemsManager.remove(viewHolder.adapterPosition)
-                binding.recyclerView.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
-
+                val item = (binding.recyclerView.adapter as StockAdapter).itemAt(viewHolder.adapterPosition)
+                viewModel.deleteItem(item)
+//                binding.recyclerView.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
             }
         }).attachToRecyclerView(binding.recyclerView)
         // handle db calls

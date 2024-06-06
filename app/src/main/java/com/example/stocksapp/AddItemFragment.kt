@@ -8,11 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.stocksapp.databinding.ItemStockAddFragmentBinding
+import android.net.Uri
+import androidx.fragment.app.activityViewModels
+import com.example.stocksapp.data.model.Item
 
 class AddItemFragment : Fragment() {
 
     private var _binding: ItemStockAddFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val imageUri : Uri? = null
+
+    private val viewModel : MainFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,14 +33,16 @@ class AddItemFragment : Fragment() {
             val value = binding.stockAmount.text.toString().toFloat() * binding.stockPrice.text.toString().toFloat()
             // name should set from api call
             val name = "stock name"
-            val item = Stock(
-                binding.previewImage.id,
-                binding.stockSymbol.text.toString(),
-                name,
-                "$$value",
-                "+2.55%"
+            val item = Item(
+                stockName = name,
+                stockSymbol = binding.stockSymbol.text.toString(),
+                stockPrice = value.toDouble(), // Assuming value is a String that can be converted to Double
+                stockAmount = binding.stockAmount.text.toString().toLong(), // You need to provide a valid Long value for stockAmount
+                stockImage = R.drawable.default_image.toString(),
+                currPrice = value.toDouble() // Assuming value is a String that can be converted to Double
             )
-            ItemsManager.add(item)
+//            ItemsManager.add(item)
+            viewModel.addItem(item)
             findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)
 
         }
@@ -51,10 +60,12 @@ class AddItemFragment : Fragment() {
                 }
 
                 R.id.total -> {
+                    findNavController().navigate(R.id.action_addItemFragment_to_totalFragment)
                     true
                 }
 
                 R.id.alerts -> {
+                    findNavController().navigate(R.id.action_addItemFragment_to_infoFragment)
                     true
                 }
 

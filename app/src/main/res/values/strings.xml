@@ -8,4 +8,25 @@
     <string name="Alerts">Alerts</string>
     <string name="stock_image">stock image</string>
     <string name="delete_icon">delete icon</string>
+
+    <string name="NVIDIA_name">NVIDIA</string>
+    <string name="NVIDIA_description">Nvidia (NVDA) is a technology company providing computer processing capability in a variety of arenas, including computer gaming, mobile computing, supercomputing, automotive computing and artificial intelligence. </string>
+    <string name="Meta_name">Meta</string>
+    <string name="Meta_description">Meta Platforms, Inc. engages in the development of social media applications. It builds technology that helps people connect and share, find communities, and grow businesses.</string>
+    <string name="Netflix_name">Netflix</string>
+    <string name="Netflix_description">Netflix, Inc. engages in providing entertainment services. It also offers activities for leisure time, entertainment video, video gaming, and other sources of entertainment.</string>
+    <string name="Rivian_Automotive_name">"Rivian Automotive</string>
+    <string name="Rivian_Automotive_description">Rivian Automotive, Inc. engages in the design, development, and manufacture of category-defining electric vehicles and accessories.</string>
+    <string name="Microsoft_name">Microsoft</string>
+    <string name="Microsoft_description">The Microsoft Corporation (MSFT), commonly shortened to Microsoft, is a multinational American technology company. Headquartered in Redmond, WA, Microsoft researches, develops, manufactures, supports, licenses, and sells personal computers, computer software, consumer electronics, and related services.</string>
+    <string name="Alphabet_name">Alphabet</string>
+    <string name="Alphabet_description">Alphabet, Inc. is a holding company, which engages in software, health care, transportation, and other technologies. It operates through the following segments: Google Services, Google Cloud, and Other Bets.</string>
+    <string name="Amazon_name">Amazon</string>
+    <string name="Amazon_description">Amazon.com, Inc (AMZN) is a multinational technology company that is known for its online shopping (e-commerce) capabilities, digital streaming services, and artificial intelligence.</string>
+    <string name="Apple_name">Apple</string>
+    <string name="Apple_description">Apple (AAPL) is a multinational technology company that develops, designs, markets, and distributes multiple forms of consumer electronics and online services.</string>
+    <string name="Tesla_name">Tesla</string>
+    <string name="Tesla_description">Tesla (TSLA), formerly known as Tesla Motors, Inc., is an auto manufacturer that specializes in electric vehicle production and clean energy. This auto manufacturer conducts research on battery energy storage, coordinating power from grids to homes and vehicles.</string>
+    <string name="Disney_name">Disney</string>
+    <string name="Disney_description">The Walt Disney Company (DIS), commonly shortened to Disney, is a multinational entertainment and mass media corporation. It is known for its TV channels, animated and live action films, and entertainment parks.</string>
 </resources>

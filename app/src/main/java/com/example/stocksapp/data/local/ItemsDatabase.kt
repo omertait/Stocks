@@ -21,8 +21,9 @@ abstract class ItemsDatabase : RoomDatabase() {
         {
             Room.databaseBuilder(
                 context.applicationContext,
-                ItemsDatabase::class.java, "items_databse"
-            ).fallbackToDestructiveMigration().build().also { instance = it }
+                ItemsDatabase::class.java, "items_database"
+//            ).fallbackToDestructiveMigration().build().also { instance = it }
+            ).allowMainThreadQueries().build().also { instance = it }
         }
 
     }

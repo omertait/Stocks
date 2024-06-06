@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.enableSavedStateHandles
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +21,14 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//        enableEdgeToEdge()
+//
+//        _binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
         super.onCreate(savedInstanceState)
-
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
 
     }
