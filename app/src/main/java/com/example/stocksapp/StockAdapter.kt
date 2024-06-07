@@ -1,28 +1,34 @@
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
 import com.example.stocksapp.databinding.ItemStockBinding
 
 class StockAdapter(
     private val stocks: List<Item>,
-    private val itemClickListener: (Item) -> Unit,
-    private val deleteClickListener: (Item) -> Unit
+    private val callback:ItemListener
 ) : RecyclerView.Adapter<StockAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(
+    interface ItemListener {
+        fun onItemClicked(index:Int)
+        fun onItemAttrClicked(index:Int)
+    }
+    inner class ItemViewHolder(
         private val binding: ItemStockBinding,
         private val context : Context,
-        private val itemClickListener: (Item) -> Unit,
-        private val deleteClickListener: (Item) -> Unit
-
     ) :
-            RecyclerView.ViewHolder(binding.root){
+            RecyclerView.ViewHolder(binding.root), OnClickListener{
 
+                init {
+                    binding.root.setOnClickListener(this)
+                }
                 fun bind(item: Item){
                     binding.stockSymbol.text = item.stockSymbol
                     binding.stockName.text = item.stockName
@@ -38,21 +44,18 @@ class StockAdapter(
                     val color = ContextCompat.getColor(context, colorResId)
                     binding.stockChange.setTextColor(color)
 
-                    binding.root.setOnClickListener {
-                        itemClickListener(item)
-                    }
+                    Glide.with(binding.root).load(item.stockImage).circleCrop().into(binding.stockImage)
 
-                    binding.deleteButton.setOnClickListener {
-                        deleteClickListener(item)
-                    }
 
                 }
 
-
+        override fun onClick(p0: View?) {
+            callback.onItemClicked(adapterPosition)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(ItemStockBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context, itemClickListener, deleteClickListener)
+        return ItemViewHolder(ItemStockBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

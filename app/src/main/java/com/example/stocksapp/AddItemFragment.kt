@@ -1,6 +1,8 @@
 package com.example.stocksapp
 
 import Stock
+import android.content.ContentResolver
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.stocksapp.databinding.ItemStockAddFragmentBinding
 import android.net.Uri
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.example.stocksapp.data.model.Item
 
@@ -17,7 +22,21 @@ class AddItemFragment : Fragment() {
     private var _binding: ItemStockAddFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val imageUri : Uri? = null
+    private var imageUri : Uri? = null
+
+    val pickLauncher: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) {
+            if (it != null) {
+                binding.previewImage.setImageURI(it)
+                requireActivity().contentResolver.takePersistableUriPermission(
+                    it!!,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                imageUri = it
+            } else {
+                Toast.makeText(requireContext(), "select image", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private val viewModel : MainFragmentViewModel by activityViewModels()
 
@@ -28,7 +47,26 @@ class AddItemFragment : Fragment() {
     ): View? {
         _binding = ItemStockAddFragmentBinding.inflate(inflater, container, false)
 
+        binding.imageBtn.setOnClickListener {
+            pickLauncher.launch(arrayOf("image/*"))
+        }
+
         binding.addBtn.setOnClickListener {
+
+            // set the chosen image uri
+            val currentImageUri = imageUri
+            val chosenImageUri: Uri = if (currentImageUri != null) {
+                currentImageUri
+            } else {
+                val resourceId = R.drawable.default_image
+                Uri.parse(
+                    ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                            resources.getResourcePackageName(resourceId) + "/" +
+                            resources.getResourceTypeName(resourceId) + "/" +
+                            resources.getResourceEntryName(resourceId)
+                )
+            }
+
 
             val value = binding.stockAmount.text.toString().toFloat() * binding.stockPrice.text.toString().toFloat()
             // name should set from api call
@@ -38,7 +76,7 @@ class AddItemFragment : Fragment() {
                 stockSymbol = binding.stockSymbol.text.toString(),
                 stockPrice = value.toDouble(), // Assuming value is a String that can be converted to Double
                 stockAmount = binding.stockAmount.text.toString().toLong(), // You need to provide a valid Long value for stockAmount
-                stockImage = R.drawable.default_image.toString(),
+                stockImage = chosenImageUri.toString(),
                 currPrice = value.toDouble() // Assuming value is a String that can be converted to Double
             )
 //            ItemsManager.add(item)

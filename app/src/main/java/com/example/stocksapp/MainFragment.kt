@@ -72,16 +72,17 @@ class MainFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         viewModel.items?.observe(viewLifecycleOwner) {
-            val itemClickCallback: (Item) -> Unit = {item ->
-                viewModel.setItem(item)
-                findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
-            }
 
-            val deleteClickCallback: (Item) -> Unit = { item ->
-                viewModel.deleteItem(item)
-            }
+            binding.recyclerView.adapter = StockAdapter(it, object : StockAdapter.ItemListener {
+                override fun onItemClicked(index: Int) {
+                    viewModel.setItem(it[index])
+                    findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
+                }
 
-            binding.recyclerView.adapter = StockAdapter(it, itemClickCallback, deleteClickCallback)
+                override fun onItemAttrClicked(index: Int) {
+                    // do nothing
+                }
+            })
         }
 
 
