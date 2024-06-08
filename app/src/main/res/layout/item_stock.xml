@@ -42,55 +42,70 @@
 
         <TextView
             android:id="@+id/stockSymbol"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/stock_symbol"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="AMZN"/>
 
         <TextView
             android:id="@+id/stockName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/stock_name"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:text="stock name"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="end"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+        android:gravity="end"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/lastUpdated"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/stockValue"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/stock_value"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="131.0"/>
 
         <TextView
             android:id="@+id/stockChange"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/up"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:text="+3%"/>
 
     </LinearLayout>
+        <TextView
+            android:id="@+id/lastUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/stock_name"
+            android:textSize="14sp"
+            android:text="10 sec ago"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toStartOf="@+id/UpdateButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
-            android:id="@+id/deleteButton"
+            android:id="@+id/UpdateButton"
             android:layout_width="49dp"
             android:layout_height="55dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/delete_icon"
-            android:src="@drawable/delete_sweep"
+            android:contentDescription="@string/update_stats_btn"
+            android:src="@drawable/update_stats"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

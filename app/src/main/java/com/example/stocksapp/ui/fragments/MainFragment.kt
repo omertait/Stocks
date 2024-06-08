@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stocksapp.databinding.MainFragmentBinding
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.stocksapp.R
+import com.example.stocksapp.ui.classes.ItemAdapter
 import com.example.stocksapp.ui.classes.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,9 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MainFragmentViewModel by activityViewModels()
+
+//    @Inject
+//    lateinit var stockRemoteDataSource: StockRemoteDataSource
 
     override fun onCreateView(
         inflater: LayoutInflater,

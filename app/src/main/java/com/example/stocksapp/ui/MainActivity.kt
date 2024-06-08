@@ -17,10 +17,11 @@ class MainActivity : AppCompatActivity() {
 //
 //        enableEdgeToEdge()
 //
-//        _binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+//        setContentView(R.layout.activity_main)
 
 
     }

@@ -7,7 +7,7 @@
     <string name="Total">Total</string>
     <string name="Alerts">Alerts</string>
     <string name="stock_image">stock image</string>
-    <string name="delete_icon">delete icon</string>
+    <string name="update_stats_btn">update stats button</string>
 
     <string name="NVIDIA_name">NVIDIA</string>
     <string name="NVIDIA_description">Nvidia (NVDA) is a technology company providing computer processing capability in a variety of arenas, including computer gaming, mobile computing, supercomputing, automotive computing and artificial intelligence. </string>

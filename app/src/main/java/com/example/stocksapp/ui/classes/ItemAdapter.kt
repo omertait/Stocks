@@ -1,4 +1,4 @@
-package com.example.stocksapp.ui.fragments
+package com.example.stocksapp.ui.classes
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
