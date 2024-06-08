@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="0dp"
-    tools:context=".TotalFragment"
+    tools:context=".ui.fragments.TotalFragment"
     android:orientation="vertical">
 
     <TextView

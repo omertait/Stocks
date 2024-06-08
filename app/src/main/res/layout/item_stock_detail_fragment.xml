@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="20dp"
-    tools:context=".ItemDetailFragment">
+    tools:context=".ui.fragments.ItemDetailFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

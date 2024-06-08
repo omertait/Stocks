@@ -71,6 +71,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "FINNHUB_API_KEY", "\"cp7iu6hr01qpb9rap7p0cp7iu6hr01qpb9rap7pg\"")
     }
 
     buildFeatures {

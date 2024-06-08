@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.stocksapp.MainFragment"
+        android:name="com.example.stocksapp.ui.fragments.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="com.example.stocksapp.AddItemFragment"
+        android:name="com.example.stocksapp.ui.fragments.AddItemFragment"
         android:label="item_stock_add_fragment"
         tools:layout="@layout/item_stock_add_fragment" >
         <action
@@ -42,12 +42,12 @@
     </fragment>
     <fragment
         android:id="@+id/itemDetailFragment"
-        android:name="com.example.stocksapp.ItemDetailFragment"
+        android:name="com.example.stocksapp.ui.fragments.ItemDetailFragment"
         android:label="item_stock_detail_fragment"
         tools:layout="@layout/item_stock_detail_fragment" />
     <fragment
         android:id="@+id/totalFragment"
-        android:name="com.example.stocksapp.TotalFragment"
+        android:name="com.example.stocksapp.ui.fragments.TotalFragment"
         android:label="total_fragment"
         tools:layout="@layout/total_fragment" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.example.stocksapp.InfoFragment"
+        android:name="com.example.stocksapp.ui.fragments.InfoFragment"
         android:label="InfoFragment" >
         <action
             android:id="@+id/action_infoFragment_to_mainFragment"

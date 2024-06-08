@@ -1,4 +1,4 @@
-package com.example.stocksapp
+package com.example.stocksapp.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.stocksapp.databinding.ItemStockDetailFragmentBinding
 import com.bumptech.glide.Glide
+import com.example.stocksapp.ui.classes.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
 
     private var _binding: ItemStockDetailFragmentBinding? = null

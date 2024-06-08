@@ -1,8 +1,6 @@
-package com.example.stocksapp
+package com.example.stocksapp.ui.fragments
 
-import ItemsManager
-import Stock
-import StockAdapter
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocksapp.databinding.MainFragmentBinding
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.stocksapp.data.model.Item
+import com.example.stocksapp.R
+import com.example.stocksapp.ui.classes.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
@@ -73,7 +73,7 @@ class MainFragment : Fragment() {
 
         viewModel.items?.observe(viewLifecycleOwner) {
 
-            binding.recyclerView.adapter = StockAdapter(it, object : StockAdapter.ItemListener {
+            binding.recyclerView.adapter = ItemAdapter(it, object : ItemAdapter.ItemListener {
                 override fun onItemClicked(index: Int) {
                     viewModel.setItem(it[index])
                     findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
@@ -101,7 +101,7 @@ class MainFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val item = (binding.recyclerView.adapter as StockAdapter).itemAt(viewHolder.adapterPosition)
+                val item = (binding.recyclerView.adapter as ItemAdapter).itemAt(viewHolder.adapterPosition)
                 viewModel.deleteItem(item)
 //                binding.recyclerView.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
             }

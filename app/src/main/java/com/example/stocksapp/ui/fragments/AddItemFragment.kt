@@ -1,6 +1,5 @@
-package com.example.stocksapp
+package com.example.stocksapp.ui.fragments
 
-import Stock
 import android.content.ContentResolver
 import android.content.Intent
 import android.os.Bundle
@@ -15,8 +14,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
+import com.example.stocksapp.ui.classes.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddItemFragment : Fragment() {
 
     private var _binding: ItemStockAddFragmentBinding? = null

@@ -1,3 +1,5 @@
+package com.example.stocksapp.ui.classes
+
 // Stock.kt
 data class Stock(
     val imageResId: Int,

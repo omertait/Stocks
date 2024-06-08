@@ -1,4 +1,4 @@
-
+package com.example.stocksapp.ui.fragments
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +11,10 @@ import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
 import com.example.stocksapp.databinding.ItemStockBinding
 
-class StockAdapter(
+class ItemAdapter(
     private val stocks: List<Item>,
-    private val callback:ItemListener
-) : RecyclerView.Adapter<StockAdapter.ItemViewHolder>() {
+    private val callback: ItemListener
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     interface ItemListener {
         fun onItemClicked(index:Int)

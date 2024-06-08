@@ -7,14 +7,14 @@ import javax.inject.Inject
 import android.app.Application
 
 
-//class ItemRepository @Inject constructor(private val itemDao: ItemDao) {
-class ItemRepository(application: Application) {
+class ItemRepository @Inject constructor(private val itemDao: ItemDao) {
+//class ItemRepository(application: Application) {
 
-    private var itemDao: ItemDao?
-    init {
-        val db  = ItemsDatabase.getDatabase(application.applicationContext)
-        itemDao = db.itemsDao()
-    }
+//    private var itemDao: ItemDao?
+//    init {
+//        val db  = ItemsDatabase.getDatabase(application.applicationContext)
+//        itemDao = db.itemsDao()
+//    }
     fun getItems() = itemDao?.getItems()
 
     suspend fun addItem(item: Item) {
