@@ -17,6 +17,7 @@ import com.example.stocksapp.R
 import com.example.stocksapp.data.remote_db.StockRemoteDataSource
 import com.example.stocksapp.data.utils.Constants
 import com.example.stocksapp.data.utils.Success
+import com.example.stocksapp.data.utils.Error
 import com.example.stocksapp.ui.classes.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +49,8 @@ class ItemDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         viewModel.chosenItem.observe(viewLifecycleOwner) {
             binding.itemName.text = it.stockName
             binding.stockSymbol.text = it.stockSymbol
@@ -63,7 +66,9 @@ class ItemDetailFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val response = stockRemoteDataSource.getQuote(stockSymbol, token)
+
                     if (response.status is Success) {
+
                         val currPrice = response.status.data?.c
                         val openingPrice = response.status.data?.o
                         Log.d("PRICES", "currPrice, $stockSymbol: $$currPrice")
@@ -132,12 +137,13 @@ class ItemDetailFragment : Fragment() {
                         binding.itemProfit.text = "network Error"//R.string.networkError.toString()
                         binding.itemProfitTitle.text = "network Error"//getString(R.string.profit)
                         viewModel.updateItem(it)
-                        Log.d("PRICES", "API status = Error")
+                        Log.d("PRICES", "API status = Error ${errorMessage}")
                     }
                 } catch (e: Exception) {
                     Log.d("PRICES", "Exception in API request")
                 }
             }
+            Log.d("api", "end api call")
         }
     }
 

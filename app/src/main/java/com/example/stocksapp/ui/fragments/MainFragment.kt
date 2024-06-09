@@ -2,20 +2,34 @@ package com.example.stocksapp.ui.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocksapp.databinding.MainFragmentBinding
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.bumptech.glide.Glide
 import com.example.stocksapp.R
+import com.example.stocksapp.data.remote_db.StockRemoteDataSource
+import com.example.stocksapp.data.utils.Constants
+import com.example.stocksapp.data.utils.Error
+import com.example.stocksapp.data.utils.Success
 import com.example.stocksapp.ui.classes.ItemAdapter
 import com.example.stocksapp.ui.classes.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -25,8 +39,8 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainFragmentViewModel by activityViewModels()
 
-//    @Inject
-//    lateinit var stockRemoteDataSource: StockRemoteDataSource
+    @Inject
+    lateinit var stockRemoteDataSource: StockRemoteDataSource
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,8 +98,64 @@ class MainFragment : Fragment() {
                 }
 
                 override fun onItemAttrClicked(index: Int) {
-                    // do nothing
-                }
+                    // make api call for updating stats
+                        // ************* SHOULD BE UPDATED INTO LOCAL DB ***************
+                    // ************* ALSO UPDATE UI ***************
+                        val stockSymbol = it[index].stockSymbol
+                        val token = Constants.API_KEY
+                        Log.d("PRICES", "Initiating API request")
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            try {
+                                val response = stockRemoteDataSource.getQuote(stockSymbol, token)
+
+                                if (response.status is Success) {
+
+                                    val currPrice = response.status.data?.c
+                                    val openingPrice = response.status.data?.o
+                                    Log.d("PRICES", "currPrice, $stockSymbol: $$currPrice")
+                                    Log.d("PRICES", "openingPrice, $stockSymbol: $$openingPrice")
+
+                                    withContext(Dispatchers.Main) {
+                                        if (currPrice != null) {
+                                            it[index].currPrice = currPrice
+
+
+                                            val totalPriceDiff = it[index].currPrice - it[index].stockPrice
+                                            val profit = totalPriceDiff * it[index].stockAmount
+
+
+                                            val totalChangePercentage = (totalPriceDiff / it[index].stockPrice) * 100
+
+
+
+                                            if (openingPrice != null) {
+                                                val todayPriceDiff =
+                                                    openingPrice.toDouble() - currPrice.toDouble()
+                                                val todayChange =
+                                                    (todayPriceDiff / openingPrice.toDouble()) * 100
+
+                                            }
+                                            viewModel.updateItem(it[index])
+                                        }
+                                        Toast.makeText(context, "Stats Updated", Toast.LENGTH_LONG).show()
+
+                                    }
+                                } else if (response.status is Error) {
+                                    val errorMessage = response.status.message
+                                    it[index].currPrice = 0.0
+
+                                    viewModel.updateItem(it[index])
+                                    Log.d("PRICES", "API status = Error $errorMessage")
+                                    Toast.makeText(context, "Error $errorMessage", Toast.LENGTH_LONG).show()
+
+                                }
+                            } catch (e: Exception) {
+                                Log.d("PRICES", "Exception in API request")
+                            }
+                        }
+                        Log.d("api", "end api call")
+                    }
+
             })
         }
 

@@ -28,6 +28,9 @@ class ItemAdapter(
 
                 init {
                     binding.root.setOnClickListener(this)
+                    binding.UpdateButton.setOnClickListener{
+                        callback.onItemAttrClicked(adapterPosition)
+                    }
                 }
                 fun bind(item: Item){
                     binding.stockSymbol.text = item.stockSymbol

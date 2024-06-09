@@ -57,6 +57,8 @@ class InfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.alerts)
+        checkedMenuItem.setChecked(true)
 
     }
 

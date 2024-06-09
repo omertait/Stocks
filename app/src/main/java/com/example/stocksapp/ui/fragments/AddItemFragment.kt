@@ -27,7 +27,7 @@ class AddItemFragment : Fragment() {
 
     private var imageUri : Uri? = null
 
-    val pickLauncher: ActivityResultLauncher<Array<String>> =
+    private val pickLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             if (it != null) {
                 binding.previewImage.setImageURI(it)
@@ -71,7 +71,8 @@ class AddItemFragment : Fragment() {
             }
 
 
-            val value = binding.stockAmount.text.toString().toFloat() * binding.stockPrice.text.toString().toFloat()
+//            val value = binding.stockAmount.text.toString().toFloat() * binding.stockPrice.text.toString().toFloat()
+            val value = binding.stockPrice.text.toString()
             // name should set from api call
             val name = "stock name"
             val item = Item(

@@ -60,6 +60,9 @@ class TotalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.total)
+        checkedMenuItem.setChecked(true)
+
     }
 
     override fun onDestroyView() {
