@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
 import com.example.stocksapp.ui.classes.MainFragmentViewModel
@@ -41,6 +42,8 @@ class AddItemFragment : Fragment() {
             }
         }
 
+
+
     private val viewModel : MainFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -53,6 +56,23 @@ class AddItemFragment : Fragment() {
         binding.imageBtn.setOnClickListener {
             pickLauncher.launch(arrayOf("image/*"))
         }
+        binding.previewImage.setOnClickListener {
+            ImageSelectionDialogFragment().show(parentFragmentManager, "imageSelection")
+        }
+
+        setFragmentResultListener("requestKey") { _, bundle ->
+            val selectedImageId = bundle.getInt("selectedImageId")
+            imageUri = Uri.parse(
+                ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                        resources.getResourcePackageName(selectedImageId) + "/" +
+                        resources.getResourceTypeName(selectedImageId) + "/" +
+                        resources.getResourceEntryName(selectedImageId)
+            )
+            binding.previewImage.setImageURI(imageUri)
+        }
+
+
+
 
         binding.addBtn.setOnClickListener {
 
