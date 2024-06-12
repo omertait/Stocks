@@ -24,6 +24,9 @@ data class Item(
     @ColumnInfo(name = "currPrice")
     var currPrice: Double,
 
+    @ColumnInfo(name = "openingPrice")
+    var openingPrice: Double,
+
     @ColumnInfo(name = "lastUpdateDate")
     var lastUpdateDate: Long,
 

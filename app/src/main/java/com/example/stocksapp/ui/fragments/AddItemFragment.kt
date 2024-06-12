@@ -111,6 +111,7 @@ class AddItemFragment : Fragment() {
             val stockAmount = binding.stockAmount.text.toString().toLong()
             val stockPrice = binding.stockPrice.text.toString()
             var currPrice = 0.0
+            var openingPrice = 0.0
 
             Log.d("PRICES", "Initiating API request")
             lifecycleScope.launch(Dispatchers.IO) {
@@ -120,12 +121,16 @@ class AddItemFragment : Fragment() {
                     if (response.status is Success) {
 
                         val currPriceResponse = response.status.data?.c
+                        val openingPriceResponse = response.status.data?.o
+
                         Log.d("PRICES", "currPrice, $stockSymbol: $$currPriceResponse")
+                        Log.d("PRICES", "openingPrice, $stockSymbol: $$openingPriceResponse")
 
                         withContext(Dispatchers.Main) {
-                            if (currPriceResponse != null) {
+                            if (currPriceResponse != null && openingPriceResponse != null) {
 
                                 currPrice = currPriceResponse
+                                openingPrice = openingPriceResponse
 
                             }else{
                                 Toast.makeText(context, "Error Getting stock price from api", Toast.LENGTH_LONG).show()
@@ -137,7 +142,6 @@ class AddItemFragment : Fragment() {
                         }
                     } else if (response.status is Error) {
                         val errorMessage = response.status.message
-                        currPrice = 0.0
 
                         Log.d("PRICES", "API status = Error $errorMessage")
                         Toast.makeText(context, "Error $errorMessage", Toast.LENGTH_LONG).show()
@@ -154,6 +158,7 @@ class AddItemFragment : Fragment() {
                     stockAmount = stockAmount, // You need to provide a valid Long value for stockAmount
                     stockImage = chosenImageUri.toString(),
                     currPrice = currPrice,
+                    openingPrice = openingPrice,
                     lastUpdateDate = System.currentTimeMillis()
                 )
 

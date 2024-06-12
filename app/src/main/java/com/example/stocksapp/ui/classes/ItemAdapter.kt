@@ -35,18 +35,17 @@ class ItemAdapter(
         }
         fun bind(item: Item){
 
-            val totalPriceDiff = item.currPrice - item.stockPrice
-            val totalChangePercentage = (totalPriceDiff / item.stockPrice) * 100
+            val todayPriceDiff =
+                    item.openingPrice - item.currPrice
+            val todayChange =
+                    (todayPriceDiff / item.openingPrice) * 100
+
             binding.stockSymbol.text = item.stockSymbol
             binding.stockName.text = item.stockName
-//                    update to relevant values
             binding.stockValue.text = "$${(item.stockAmount.toFloat() * item.currPrice.toFloat()).toString()}"
-//                    binding.stockImage.setImageResource(item.imageResId)
-//                    val changeValue = item.stockPrice.removeSuffix("%").toFloat()
-            val changeValue = item.stockPrice.toFloat()
-            binding.stockChange.text = "+%.2f%%".format(totalChangePercentage).formatWithCommas()
+            binding.stockChange.text = "+%.2f%%".format(todayChange).formatWithCommas()
 
-            val colorResId = if (totalChangePercentage > 0) R.color.up else R.color.down
+            val colorResId = if (todayChange > 0) R.color.up else R.color.down
             val color = ContextCompat.getColor(context, colorResId)
             binding.stockChange.setTextColor(color)
 

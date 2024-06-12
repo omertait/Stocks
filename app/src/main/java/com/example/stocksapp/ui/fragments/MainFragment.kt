@@ -119,25 +119,27 @@ class MainFragment : Fragment() {
                             if (response.status is Success) {
 
                                 val currPrice = response.status.data?.c
+                                val openingPrice = response.status.data?.o
                                 Log.d("PRICES", "currPrice, $stockSymbol: $$currPrice")
+                                Log.d("PRICES", "openingPrice, $stockSymbol: $$openingPrice")
 
                                 withContext(Dispatchers.Main) {
-                                    if (currPrice != null) {
+                                    if (currPrice != null && openingPrice != null) {
                                         it[index].currPrice = currPrice
+                                        it[index].openingPrice = openingPrice
                                         it[index].lastUpdateDate = System.currentTimeMillis()
 
                                         viewModel.updateItem(it[index])
+                                        Toast.makeText(context, "Stats Updated", Toast.LENGTH_LONG).show()
+                                    } else {
+                                        Toast.makeText(context, "Error getting data from api", Toast.LENGTH_LONG).show()
                                     }
-                                    Toast.makeText(context, "Stats Updated", Toast.LENGTH_LONG).show()
+
 
                                 }
                             } else if (response.status is Error) {
                                 val errorMessage = response.status.message
-                                it[index].currPrice = 0.0
-                                it[index].lastUpdateDate = System.currentTimeMillis()
 
-
-                                viewModel.updateItem(it[index])
                                 Log.d("PRICES", "API status = Error $errorMessage")
                                 Toast.makeText(context, "Error $errorMessage", Toast.LENGTH_LONG).show()
 
