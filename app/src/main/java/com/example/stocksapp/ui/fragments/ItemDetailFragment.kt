@@ -11,6 +11,7 @@ import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.stocksapp.databinding.ItemStockDetailFragmentBinding
 import com.bumptech.glide.Glide
 import com.example.stocksapp.R
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.math.abs
+import com.example.stocksapp.data.utils.formatWithCommas
 
 @AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
@@ -43,12 +45,16 @@ class ItemDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ItemStockDetailFragmentBinding.inflate(inflater, container, false)
+        binding.editBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_itemDetailFragment_to_editItemFragment)
+        }
         return  binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 
         viewModel.chosenItem.observe(viewLifecycleOwner) {
@@ -77,6 +83,8 @@ class ItemDetailFragment : Fragment() {
                         withContext(Dispatchers.Main) {
                             if (currPrice != null) {
                                 it.currPrice = currPrice
+                                it.lastUpdateDate = System.currentTimeMillis()
+
                                 binding.itemPrice.text = "$%.2f".format(currPrice)
                                     .formatWithCommas() // update UI immediately
                                 binding.itemAmountTotal.text =
@@ -152,8 +160,7 @@ class ItemDetailFragment : Fragment() {
         _binding = null
     }
 
-    fun String.formatWithCommas(): String {
-        return this.replace(Regex("\\B(?=(\\d{3})+(?!\\d))"), ",")
-    }
+
+
 
 }

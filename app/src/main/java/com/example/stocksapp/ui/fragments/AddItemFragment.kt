@@ -10,15 +10,26 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.stocksapp.databinding.ItemStockAddFragmentBinding
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
+import com.example.stocksapp.data.remote_db.StockRemoteDataSource
+import com.example.stocksapp.data.utils.Constants
+import com.example.stocksapp.data.utils.Error
+import com.example.stocksapp.data.utils.Success
 import com.example.stocksapp.ui.classes.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.nio.channels.NonReadableChannelException
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddItemFragment : Fragment() {
@@ -27,6 +38,9 @@ class AddItemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var imageUri : Uri? = null
+
+    @Inject
+    lateinit var stockRemoteDataSource: StockRemoteDataSource
 
     private val pickLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
@@ -91,21 +105,70 @@ class AddItemFragment : Fragment() {
             }
 
 
-//            val value = binding.stockAmount.text.toString().toFloat() * binding.stockPrice.text.toString().toFloat()
-            val value = binding.stockPrice.text.toString()
-            // name should set from api call
-            val name = "stock name"
-            val item = Item(
-                stockName = name,
-                stockSymbol = binding.stockSymbol.text.toString(),
-                stockPrice = value.toDouble(), // Assuming value is a String that can be converted to Double
-                stockAmount = binding.stockAmount.text.toString().toLong(), // You need to provide a valid Long value for stockAmount
-                stockImage = chosenImageUri.toString(),
-                currPrice = value.toDouble() // Assuming value is a String that can be converted to Double
-            )
-//            ItemsManager.add(item)
-            viewModel.addItem(item)
-            findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)
+            val token = Constants.API_KEY
+            val stockSymbol = binding.stockSymbol.text.toString()
+            val stockName = binding.stockName.text.toString()
+            val stockAmount = binding.stockAmount.text.toString().toLong()
+            val stockPrice = binding.stockPrice.text.toString()
+            var currPrice = 0.0
+
+            Log.d("PRICES", "Initiating API request")
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val response = stockRemoteDataSource.getQuote(stockSymbol, token)
+
+                    if (response.status is Success) {
+
+                        val currPriceResponse = response.status.data?.c
+                        Log.d("PRICES", "currPrice, $stockSymbol: $$currPriceResponse")
+
+                        withContext(Dispatchers.Main) {
+                            if (currPriceResponse != null) {
+
+                                currPrice = currPriceResponse
+
+                            }else{
+                                Toast.makeText(context, "Error Getting stock price from api", Toast.LENGTH_LONG).show()
+
+                            }
+
+
+
+                        }
+                    } else if (response.status is Error) {
+                        val errorMessage = response.status.message
+                        currPrice = 0.0
+
+                        Log.d("PRICES", "API status = Error $errorMessage")
+                        Toast.makeText(context, "Error $errorMessage", Toast.LENGTH_LONG).show()
+
+                    }
+                } catch (e: Exception) {
+                    Log.d("PRICES", "Exception in API request")
+                }
+
+                val item = Item(
+                    stockName = stockName,
+                    stockSymbol = stockSymbol,
+                    stockPrice = stockPrice.toDouble(), // Assuming value is a String that can be converted to Double
+                    stockAmount = stockAmount, // You need to provide a valid Long value for stockAmount
+                    stockImage = chosenImageUri.toString(),
+                    currPrice = currPrice,
+                    lastUpdateDate = System.currentTimeMillis()
+                )
+
+                viewModel.addItem(item)
+                withContext(Dispatchers.Main) {
+                    findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)
+                }
+
+            }
+
+
+
+
+
+
 
         }
 

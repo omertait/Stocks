@@ -1,19 +1,15 @@
 package com.example.stocksapp.ui.fragments
 
-import android.app.Dialog
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.example.stocksapp.R
+import com.example.stocksapp.databinding.GridItemBinding
 import com.example.stocksapp.databinding.ImagesGridBinding
-import com.example.stocksapp.databinding.TotalFragmentBinding
 
 class ImageSelectionDialogFragment : DialogFragment() {
 
@@ -60,20 +56,17 @@ class ImageSelectionDialogFragment : DialogFragment() {
         }
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val view: View
-            val imageView: ImageView
+            val binding: GridItemBinding
 
             if (convertView == null) {
-                view = LayoutInflater.from(context).inflate(R.layout.grid_item, parent, false)
-                imageView = view.findViewById(R.id.imageView)
-                view.tag = imageView
+                binding = GridItemBinding.inflate(LayoutInflater.from(context), parent, false)
+                binding.root.tag = binding
             } else {
-                view = convertView
-                imageView = view.tag as ImageView
+                binding = convertView.tag as GridItemBinding
             }
 
-            imageView.setImageResource(imageIds[position])
-            return view
+            binding.imageView.setImageResource(imageIds[position])
+            return binding.root
         }
     }
 

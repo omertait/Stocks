@@ -45,6 +45,9 @@
         android:name="com.example.stocksapp.ui.fragments.ItemDetailFragment"
         android:label="item_stock_detail_fragment"
         tools:layout="@layout/item_stock_detail_fragment" />
+        <action
+            android:id="@+id/action_itemDetailFragment_to_editItemFragment"
+            app:destination="@id/EditItemFragment" />
     <fragment
         android:id="@+id/totalFragment"
         android:name="com.example.stocksapp.ui.fragments.TotalFragment"
@@ -73,5 +76,12 @@
         <action
             android:id="@+id/action_infoFragment_to_addItemFragment"
             app:destination="@id/addItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/EditItemFragment"
+        android:name="com.example.stocksapp.ui.fragments.EditItemFragment"
+        android:label="edit_item_fragment"
+        tools:layout="@layout/item_stock_edit_fragment" >
+        <!-- Define any actions or arguments needed for the edit fragment -->
     </fragment>
 </navigation>

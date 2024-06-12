@@ -10,11 +10,12 @@ import com.bumptech.glide.Glide
 import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
 import com.example.stocksapp.databinding.ItemStockBinding
+import com.example.stocksapp.data.utils.formatWithCommas
 
 class ItemAdapter(
     private val stocks: List<Item>,
     private val callback: ItemListener
-) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>(){
 
     interface ItemListener {
         fun onItemClicked(index:Int)
@@ -24,33 +25,46 @@ class ItemAdapter(
         private val binding: ItemStockBinding,
         private val context : Context,
     ) :
-            RecyclerView.ViewHolder(binding.root), OnClickListener{
+        RecyclerView.ViewHolder(binding.root), OnClickListener{
 
-                init {
-                    binding.root.setOnClickListener(this)
-                    binding.UpdateButton.setOnClickListener{
-                        callback.onItemAttrClicked(adapterPosition)
-                    }
-                }
-                fun bind(item: Item){
-                    binding.stockSymbol.text = item.stockSymbol
-                    binding.stockName.text = item.stockName
+        init {
+            binding.root.setOnClickListener(this)
+            binding.UpdateButton.setOnClickListener{
+                callback.onItemAttrClicked(adapterPosition)
+            }
+        }
+        fun bind(item: Item){
+
+            val totalPriceDiff = item.currPrice - item.stockPrice
+            val totalChangePercentage = (totalPriceDiff / item.stockPrice) * 100
+            binding.stockSymbol.text = item.stockSymbol
+            binding.stockName.text = item.stockName
 //                    update to relevant values
-                    binding.stockValue.text = item.stockPrice.toString()
+            binding.stockValue.text = "$${(item.stockAmount.toFloat() * item.currPrice.toFloat()).toString()}"
 //                    binding.stockImage.setImageResource(item.imageResId)
 //                    val changeValue = item.stockPrice.removeSuffix("%").toFloat()
-                    val changeValue = item.stockPrice.toFloat()
-                    val sign = if (changeValue > 0) "+" else "-"
-                    binding.stockChange.text = "${sign}${item.stockAmount.toString()}%"
+            val changeValue = item.stockPrice.toFloat()
+            binding.stockChange.text = "+%.2f%%".format(totalChangePercentage).formatWithCommas()
 
-                    val colorResId = if (changeValue > 0) R.color.up else R.color.down
-                    val color = ContextCompat.getColor(context, colorResId)
-                    binding.stockChange.setTextColor(color)
+            val colorResId = if (totalChangePercentage > 0) R.color.up else R.color.down
+            val color = ContextCompat.getColor(context, colorResId)
+            binding.stockChange.setTextColor(color)
 
-                    Glide.with(binding.root).load(item.stockImage).circleCrop().into(binding.stockImage)
+            // Calculate time difference
+            val currentTime = System.currentTimeMillis()
+            val timeDiff = currentTime - item.lastUpdateDate
+            val minutesDiff = timeDiff / (1000 * 60)
+
+            binding.lastUpdated.text = when {
+                minutesDiff < 1 -> "now"
+                minutesDiff <= 30 -> "$minutesDiff min ago"
+                else -> ">30 min"
+            }
+
+            Glide.with(binding.root).load(item.stockImage).circleCrop().into(binding.stockImage)
 
 
-                }
+        }
 
         override fun onClick(p0: View?) {
             callback.onItemClicked(adapterPosition)
@@ -70,4 +84,5 @@ class ItemAdapter(
     }
 
     fun itemAt(index: Int) = stocks[index]
+
 }

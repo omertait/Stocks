@@ -2,6 +2,8 @@ package com.example.stocksapp.ui.fragments
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,15 @@ class MainFragment : Fragment() {
     @Inject
     lateinit var stockRemoteDataSource: StockRemoteDataSource
 
+    private lateinit var adapter: ItemAdapter
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateTimeRunnable = object : Runnable {
+        override fun run() {
+            adapter.notifyDataSetChanged()
+            handler.postDelayed(this, 60000) // Update every minute
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,9 +87,6 @@ class MainFragment : Fragment() {
             }
         }
 
-
-
-
         return  binding.root
     }
 
@@ -91,7 +99,7 @@ class MainFragment : Fragment() {
 
         viewModel.items?.observe(viewLifecycleOwner) {
 
-            binding.recyclerView.adapter = ItemAdapter(it, object : ItemAdapter.ItemListener {
+            adapter = ItemAdapter(it, object : ItemAdapter.ItemListener {
                 override fun onItemClicked(index: Int) {
                     viewModel.setItem(it[index])
                     findNavController().navigate(R.id.action_mainFragment_to_itemDetailFragment)
@@ -99,64 +107,54 @@ class MainFragment : Fragment() {
 
                 override fun onItemAttrClicked(index: Int) {
                     // make api call for updating stats
-                        // ************* SHOULD BE UPDATED INTO LOCAL DB ***************
+                    // ************* SHOULD BE UPDATED INTO LOCAL DB ***************
                     // ************* ALSO UPDATE UI ***************
-                        val stockSymbol = it[index].stockSymbol
-                        val token = Constants.API_KEY
-                        Log.d("PRICES", "Initiating API request")
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            try {
-                                val response = stockRemoteDataSource.getQuote(stockSymbol, token)
+                    val stockSymbol = it[index].stockSymbol
+                    val token = Constants.API_KEY
+                    Log.d("PRICES", "Initiating API request")
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        try {
+                            val response = stockRemoteDataSource.getQuote(stockSymbol, token)
 
-                                if (response.status is Success) {
+                            if (response.status is Success) {
 
-                                    val currPrice = response.status.data?.c
-                                    val openingPrice = response.status.data?.o
-                                    Log.d("PRICES", "currPrice, $stockSymbol: $$currPrice")
-                                    Log.d("PRICES", "openingPrice, $stockSymbol: $$openingPrice")
+                                val currPrice = response.status.data?.c
+                                Log.d("PRICES", "currPrice, $stockSymbol: $$currPrice")
 
-                                    withContext(Dispatchers.Main) {
-                                        if (currPrice != null) {
-                                            it[index].currPrice = currPrice
+                                withContext(Dispatchers.Main) {
+                                    if (currPrice != null) {
+                                        it[index].currPrice = currPrice
+                                        it[index].lastUpdateDate = System.currentTimeMillis()
 
-
-                                            val totalPriceDiff = it[index].currPrice - it[index].stockPrice
-                                            val profit = totalPriceDiff * it[index].stockAmount
-
-
-                                            val totalChangePercentage = (totalPriceDiff / it[index].stockPrice) * 100
-
-
-
-                                            if (openingPrice != null) {
-                                                val todayPriceDiff =
-                                                    openingPrice.toDouble() - currPrice.toDouble()
-                                                val todayChange =
-                                                    (todayPriceDiff / openingPrice.toDouble()) * 100
-
-                                            }
-                                            viewModel.updateItem(it[index])
-                                        }
-                                        Toast.makeText(context, "Stats Updated", Toast.LENGTH_LONG).show()
-
+                                        viewModel.updateItem(it[index])
                                     }
-                                } else if (response.status is Error) {
-                                    val errorMessage = response.status.message
-                                    it[index].currPrice = 0.0
-
-                                    viewModel.updateItem(it[index])
-                                    Log.d("PRICES", "API status = Error $errorMessage")
-                                    Toast.makeText(context, "Error $errorMessage", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(context, "Stats Updated", Toast.LENGTH_LONG).show()
 
                                 }
-                            } catch (e: Exception) {
-                                Log.d("PRICES", "Exception in API request")
+                            } else if (response.status is Error) {
+                                val errorMessage = response.status.message
+                                it[index].currPrice = 0.0
+                                it[index].lastUpdateDate = System.currentTimeMillis()
+
+
+                                viewModel.updateItem(it[index])
+                                Log.d("PRICES", "API status = Error $errorMessage")
+                                Toast.makeText(context, "Error $errorMessage", Toast.LENGTH_LONG).show()
+
                             }
+                        } catch (e: Exception) {
+                            Log.d("PRICES", "Exception in API request")
                         }
-                        Log.d("api", "end api call")
                     }
+                    Log.d("api", "end api call")
+                }
 
             })
+
+            binding.recyclerView.adapter = adapter
+
+            // Start the handler to update time differences
+            handler.post(updateTimeRunnable)
         }
 
 
@@ -185,6 +183,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        handler.removeCallbacks(updateTimeRunnable) // Stop the handler when the view is destroyed
         _binding = null
     }
 }
