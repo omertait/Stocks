@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">StocksApp</string>
-    <string name="Home_Title">My Stocks</string>
+    <string name="Home_Title">Stock Tracker</string>
     <string name="Add_Title">add a new stock</string>
     <string name="Home">Home</string>
     <string name="Add">Add</string>
     <string name="Total">Total</string>
-    <string name="Alerts">Alerts</string>
+    <string name="HotStocks">Hot Stocks</string>
     <string name="stock_image">stock image</string>
     <string name="update_stats_btn">update stats button</string>
     <string name="Edit_Stock">Edit Stock</string>

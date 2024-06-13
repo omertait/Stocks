@@ -6,7 +6,7 @@
     <string name="Home">דף הבית</string>
     <string name="Add">הוסף</string>
     <string name="Total">סך הכל</string>
-    <string name="Alerts">התראות</string>
+    <string name="HotStocks">מומלצות</string>
     <string name="stock_image">תמונת מניה</string>
     <string name="update_stats_btn">עדכן סטטיסטיקות</string>
     <string name="Edit_Stock">עדכן מניה</string>

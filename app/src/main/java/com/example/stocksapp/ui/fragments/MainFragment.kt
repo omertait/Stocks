@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocksapp.databinding.MainFragmentBinding
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.bumptech.glide.Glide
 import com.example.stocksapp.R
 import com.example.stocksapp.data.remote_db.StockRemoteDataSource
 import com.example.stocksapp.data.utils.Constants
@@ -31,7 +29,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.math.abs
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -78,7 +75,7 @@ class MainFragment : Fragment() {
                     true
                 }
 
-                R.id.alerts -> {
+                R.id.hotStocks -> {
                     findNavController().navigate(R.id.action_mainFragment_to_infoFragment)
                     true
                 }

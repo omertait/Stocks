@@ -4,7 +4,7 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/default_image"
+        android:icon="@drawable/home"
         android:title="@string/Home"/>
 
     <item
@@ -21,8 +21,8 @@
         android:title="@string/Total"/>
 
     <item
-        android:id="@+id/alerts"
+        android:id="@+id/hotStocks"
         android:enabled="true"
-        android:icon="@drawable/alerts"
-        android:title="@string/Alerts"/>
+        android:icon="@drawable/fire"
+        android:title="@string/HotStocks"/>
 </menu>

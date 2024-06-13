@@ -11,10 +11,11 @@ import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
 import com.example.stocksapp.databinding.ItemStockBinding
 import com.example.stocksapp.data.utils.formatWithCommas
+import com.example.stocksapp.data.utils.getColor
 
 class ItemAdapter(
     private val stocks: List<Item>,
-    private val callback: ItemListener
+    private val callback: ItemListener,
 ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>(){
 
     interface ItemListener {
@@ -45,9 +46,7 @@ class ItemAdapter(
             binding.stockValue.text = "$${(item.stockAmount.toFloat() * item.currPrice.toFloat()).toString()}"
             binding.stockChange.text = "+%.2f%%".format(todayChange).formatWithCommas()
 
-            val colorResId = if (todayChange > 0) R.color.up else R.color.down
-            val color = ContextCompat.getColor(context, colorResId)
-            binding.stockChange.setTextColor(color)
+            binding.stockChange.setTextColor(getColor(todayChange, context))
 
             // Calculate time difference
             val currentTime = System.currentTimeMillis()

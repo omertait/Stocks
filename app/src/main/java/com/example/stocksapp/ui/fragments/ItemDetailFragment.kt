@@ -27,6 +27,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.math.abs
 import com.example.stocksapp.data.utils.formatWithCommas
+import com.example.stocksapp.data.utils.getColor
 
 @AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
@@ -91,27 +92,15 @@ class ItemDetailFragment : Fragment() {
                                     "$%.2f".format(it.currPrice * it.stockAmount).formatWithCommas()
                                 val totalPriceDiff = it.currPrice - it.stockPrice
                                 val profit = totalPriceDiff * it.stockAmount
-                                if (profit >= 0) {
-                                    binding.itemProfit.text =
-                                        "$%.2f".format(profit).formatWithCommas()
-//                                    binding.itemProfitTitle.text = getString(R.string.profit)
-                                } else {
-//                                    binding.itemProfitTitle.text = getString(R.string.loss)
-                                    binding.itemProfit.text =
-                                        "-$%.2f".format(abs(profit)).formatWithCommas()
-                                }
+                                binding.itemProfit.text =
+                                    "$%.2f".format(profit).formatWithCommas()
+
+
                                 val totalChangePercentage = (totalPriceDiff / it.stockPrice) * 100
-                                if (totalPriceDiff >= 0) {
-                                    binding.totalChange.text =
-                                        "+%.2f%%".format(totalChangePercentage).formatWithCommas()
-                                    binding.totalChange.setTextColor(ContextCompat.getColor(
-                                        requireContext(), R.color.up))
-                                } else {
-                                    binding.totalChange.text =
-                                        "%.2f%%".format(totalChangePercentage).formatWithCommas()
-                                    binding.totalChange.setTextColor(ContextCompat.getColor(
-                                        requireContext(), R.color.down))
-                                }
+                                binding.totalChange.text =
+                                    "+%.2f%%".format(totalChangePercentage).formatWithCommas()
+                                binding.totalChange.setTextColor(getColor(totalPriceDiff, requireContext()))
+
 
 
                                 if (openingPrice != null) {
@@ -120,17 +109,10 @@ class ItemDetailFragment : Fragment() {
                                     val todayChange =
                                         (todayPriceDiff / openingPrice.toDouble()) * 100
                                     // Display the percentage change
-                                    if (todayPriceDiff >= 0) {
-                                        binding.todayPrice.text =
-                                            "+%.2f%%".format(todayChange).formatWithCommas()
-                                        binding.todayPrice.setTextColor(ContextCompat.getColor(
-                                            requireContext(), R.color.up))
-                                    } else {
-                                        binding.todayPrice.text =
-                                            "%.2f%%".format(todayChange).formatWithCommas()
-                                        binding.todayPrice.setTextColor(ContextCompat.getColor(
-                                            requireContext(), R.color.down))
-                                    }
+                                    binding.todayPrice.text =
+                                        "+%.2f%%".format(todayChange).formatWithCommas()
+                                    binding.todayPrice.setTextColor(
+                                        getColor(todayPriceDiff, requireContext()))
                                 }
                                 viewModel.updateItem(it)
                             }

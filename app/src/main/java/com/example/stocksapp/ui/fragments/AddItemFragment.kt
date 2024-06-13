@@ -28,7 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.nio.channels.NonReadableChannelException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -194,7 +193,7 @@ class AddItemFragment : Fragment() {
                     true
                 }
 
-                R.id.alerts -> {
+                R.id.hotStocks -> {
                     findNavController().navigate(R.id.action_addItemFragment_to_infoFragment)
                     true
                 }

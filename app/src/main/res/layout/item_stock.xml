@@ -103,9 +103,9 @@
             android:id="@+id/UpdateButton"
             android:layout_width="49dp"
             android:layout_height="55dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/ripple_effect"
             android:contentDescription="@string/update_stats_btn"
-            android:src="@drawable/update_stats"
+            android:src="@drawable/reload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
