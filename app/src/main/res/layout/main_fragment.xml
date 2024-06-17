@@ -7,11 +7,10 @@
     android:background="@color/background"
     tools:context=".ui.fragments.MainFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@drawable/gradient_text"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,22 +18,27 @@
             android:id="@+id/imageView2"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_gravity="start"
-            android:src="@drawable/stock_tracker_logo" />
+            android:src="@drawable/stock_tracker_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tvHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/Home_Title"
             android:textColor="@color/stock_symbol"
             android:textSize="24sp"
-            android:layout_marginRight="65dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" />
 
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -11,4 +11,6 @@
     <color name="stock_symbol">#FFFFFF</color>
     <color name="card_background">#1E1E1E</color>
     <color name="circular_background">#444444</color>
+    <color name="light_grey">#D3D3D3</color>
+
 </resources>

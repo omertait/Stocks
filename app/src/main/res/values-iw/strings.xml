@@ -10,26 +10,76 @@
     <string name="stock_image">תמונת מניה</string>
     <string name="update_stats_btn">עדכן סטטיסטיקות</string>
     <string name="Edit_Stock">עדכן מניה</string>
+    <string name="Bought_Price">מחיר הקניה</string>
+    <string name="Bought_Amount">כמות קניה</string>
+    <string name="Stock_Name">שם המניה</string>
+    <string name="Stock_Symbol">סמל המניה</string>
+    <string name="Stock_Description">תיאור המניה</string>
+    <string name="loading">טוען</string>
+    <string name="Today_change">השינוי היום</string>
+    <string name="Current_Price">מחיר נוכחי</string>
+    <string name="Amount">כמות</string>
+    <string name="Total_worth">שווי כולל</string>
+    <string name="Profit">רווח</string>
+    <string name="Total_change">שינוי כולל</string>
+    <string name="save">שמור</string>
+    <string name="Total_Profit_Loss">רווח או הפסד כולל</string>
+    <string name="Profit_Loss">רווח או הפסד כולל (%)</string>
+    <string name="Total_Portfolio_Summary">סיכום כולל</string>
+    <string name="deletion_confirmation_title">אשר מחיקה</string>
+    <string name="deletion_confirmation">האם למחוק את מניה זו?</string>
+    <string name="deletion_confirmation_yes">כן</string>
+    <string name="deletion_confirmation_no">לא</string>
+    <string name="Error_Toast_API">שגיאה בקבלת מחיר מניה מהשירות</string>
+    <string name="Fill_All_Fields">חובה למלא את כל השדות</string>
+    <string name="Wrong_Symbol_Input">סמל המניה שגוי</string>
+    <string name="Permission_Declined">לא ניתן לבצע המרת מטבע ללא מיקום</string>
+    <string name="now">עכשיו</string>
+    <string name="min_ago">דק</string>
+    <string name="more_than_min_ago">יותר מ30 דק</string>
+
+
+
 
 
     <string name="NVIDIA_name">נבידיה</string>
     <string name="NVIDIA_description">נבידיה היא חברת טכנולוגיה המספקת יכולות עיבוד מחשב במגוון תחומים, כולל גיימינג, מחשוב נייד, מחשוב על, מחשוב רכב ובינה מלאכותית.</string>
+    <string name="NVIDIA_symbol">NVDA</string>
+
     <string name="Meta_name">מטא</string>
     <string name="Meta_description">מטא עוסקת בפיתוח אפליקציות מדיה חברתית. היא בונה טכנולוגיה שמסייעת לאנשים להתחבר ולשתף, למצוא קהילות ולצמוח עסקית.</string>
+    <string name="Meta_symbol">META</string>
+
     <string name="Netflix_name">נטפליקס</string>
     <string name="Netflix_description">נטפליקס עוסקת במתן שירותי בידור. היא גם מציעה פעילויות לפנאי, בידור, גיימינג ומקורות בידור נוספים.</string>
+    <string name="Netflix_symbol">NFLX</string>
+
     <string name="Rivian_Automotive_name">ריביאן אוטומוטיב</string>
     <string name="Rivian_Automotive_description">ריביאן אוטומוטיב עוסקת בתכנון, פיתוח וייצור רכבים חשמליים.</string>
+    <string name="Rivian_Automotive_symbol">RIVN</string>
+
     <string name="Microsoft_name">מיקרוסופט</string>
     <string name="Microsoft_description">מיקרוסופט היא חברה טכנולוגית רב-לאומית אמריקאית. מיקרוסופט חוקרת, מפתחת, מייצרת, תומכת, ומוכרת מחשבים אישיים, תוכנות מחשב, אלקטרוניקה צרכנית ושירותים קשורים.</string>
+    <string name="Microsoft_symbol">MSFT</string>
+
     <string name="Alphabet_name">אלפבית</string>
     <string name="Alphabet_description">אלפבית חברת אחזקות, העוסקת בתוכנה, בריאות, תחבורה וטכנולוגיות נוספות. היא פועלת באמצעות החטיבות הבאות: שירותי גוגל, גוגל קלאוד ועוד.</string>
+    <string name="Alphabet_symbol">GOOGL</string>
+
     <string name="Amazon_name">אמזון</string>
     <string name="Amazon_description">אמזון היא חברה טכנולוגית בין-לאומית הידועה ביכולות המסחר האלקטרוני שלה, שירותי סטרימינג דיגיטלי ובינה מלאכותית.</string>
+    <string name="Amazon_symbol">AMZN</string>
+
     <string name="Apple_name">אפל</string>
     <string name="Apple_description">אפל היא חברה טכנולוגית בין-לאומית המפתחת, מעצבת, משווקת ומפיצה צורות רבות של אלקטרוניקה צרכנית ושירותים מקוונים.</string>
+    <string name="Apple_symbol">AAPL</string>
+
     <string name="Tesla_name">טסלה</string>
     <string name="Tesla_description">טסלה היא יצרנית רכב המתמחה בייצור רכבים חשמליים ואנרגיה נקייה.</string>
+    <string name="Tesla_symbol">TSLA</string>
+
     <string name="Disney_name">דיסני</string>
     <string name="Disney_description">דיסני היא תאגיד בידור ומדיה בין-לאומי. היא ידועה בערוצי הטלוויזיה שלה, סרטים מונפשים ומצולמים, ופארקי הבידור שלה.</string>
+    <string name="Disney_symbol">DIS</string>
+
 </resources>

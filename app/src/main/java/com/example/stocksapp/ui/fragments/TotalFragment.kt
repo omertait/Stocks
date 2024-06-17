@@ -1,6 +1,8 @@
 package com.example.stocksapp.ui.fragments
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +12,30 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.stocksapp.R
 import com.example.stocksapp.data.model.Item
+import com.example.stocksapp.data.utils.LocationCallback
+import com.example.stocksapp.data.utils.convertCurrency
 import com.example.stocksapp.databinding.TotalFragmentBinding
 import com.example.stocksapp.ui.classes.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.stocksapp.data.utils.formatWithCommas
 import com.example.stocksapp.data.utils.getColor
+import com.example.stocksapp.data.utils.getCurrencySymbol
+import com.example.stocksapp.data.utils.getLastLocation
+import com.example.stocksapp.ui.MainActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 @AndroidEntryPoint
-class TotalFragment : Fragment() {
+class TotalFragment : Fragment(), LocationCallback {
 
     private var _binding: TotalFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MainFragmentViewModel by activityViewModels()
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private var location: String = "Unknown"
 
     private var totalWorth: Double = 0.0
     private var totalChangePercentage: Double = 0.0
@@ -34,6 +47,10 @@ class TotalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = TotalFragmentBinding.inflate(inflater, container, false)
+
+        // Initialize the FusedLocationProviderClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        getLastLocation(this, requireContext(), fusedLocationClient, this)
 
         binding.bottomNavigation.setOnItemSelectedListener { itemMenu ->
 
@@ -65,13 +82,15 @@ class TotalFragment : Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onLocationRetrieved(country: String) {
+        Log.d("location", country)
+        location = country
 
-        val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.total)
-        checkedMenuItem.setChecked(true)
+        // calc totals after location is retrieved
+        calcTotals()
+    }
 
-
+    private fun calcTotals() {
         viewModel.items?.observe(viewLifecycleOwner, Observer { itemList ->
             itemList?.let {
                 for (item in it) {
@@ -81,6 +100,13 @@ class TotalFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val checkedMenuItem = binding.bottomNavigation.menu.findItem(R.id.total)
+        checkedMenuItem.setChecked(true)
 
     }
 
@@ -89,10 +115,15 @@ class TotalFragment : Fragment() {
         totalChangePercentage = 0.0
         totalProfit = 0.0
 
+
+
         for (item in items) {
-            val worth = item.stockAmount.toFloat() * item.currPrice.toFloat()
-            val changePercentage = ((item.currPrice.toFloat() - item.stockPrice.toFloat()) / item.stockPrice.toFloat()) * 100
-            val profit = (item.currPrice.toFloat() - item.stockPrice.toFloat()) * item.stockAmount.toFloat()
+            val convertedCurrPrice = convertCurrency(item.currPrice, location)
+            val convertedStockPrice = convertCurrency(item.stockPrice, location)
+
+            val worth = item.stockAmount.toFloat() * convertedCurrPrice.toFloat()
+            val changePercentage = ((convertedCurrPrice.toFloat() - convertedStockPrice.toFloat()) / convertedStockPrice.toFloat()) * 100
+            val profit = (convertedCurrPrice.toFloat() - convertedStockPrice.toFloat()) * item.stockAmount.toFloat()
 
             totalWorth += worth
             totalChangePercentage += changePercentage
@@ -103,9 +134,11 @@ class TotalFragment : Fragment() {
     }
 
     private fun displayTotals() {
-        binding.totalWorth.text = "$%.2f".format(totalWorth).formatWithCommas()
+        val currencySymbol = getCurrencySymbol(location)
+
+        binding.totalWorth.text = "${currencySymbol}%.2f".format(totalWorth).formatWithCommas()
         binding.totalProfitLossPercentage.text = "%.2f%%".format(totalChangePercentage).formatWithCommas()
-        binding.totalProfitLossValue.text = "$%.2f".format(totalProfit).formatWithCommas()
+        binding.totalProfitLossValue.text = "${currencySymbol}%.2f".format(totalProfit).formatWithCommas()
 
         binding.totalProfitLossPercentage.setTextColor(getColor(totalChangePercentage, requireContext()))
     }

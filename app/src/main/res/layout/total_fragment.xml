@@ -9,12 +9,11 @@
     android:padding="0dp"
     tools:context=".ui.fragments.TotalFragment"
     android:orientation="vertical">
-
-    <LinearLayout
+    <!-- Top bar containing logo and title -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@drawable/gradient_text"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,37 +21,42 @@
             android:id="@+id/imageView2"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_gravity="start"
-            android:src="@drawable/stock_tracker_logo" />
+            android:src="@drawable/stock_tracker_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tvHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/Home_Title"
             android:textColor="@color/stock_symbol"
             android:textSize="24sp"
-            android:layout_marginRight="65dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" />
 
-
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Title for the total portfolio summary -->
     <TextView
         android:id="@+id/total_summary_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="10dp"
-        android:text="Total Portfolio Summary"
+        android:text="@string/Total_Portfolio_Summary"
         android:textColor="@color/stock_symbol"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar" />
-
+    <!-- MaterialCardView for displaying total portfolio summary -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/total_card"
         android:layout_width="match_parent"
@@ -67,13 +71,13 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@+id/total_summary_title"
         tools:layout_editor_absoluteX="20dp">
-
+        <!-- Container LinearLayout inside the card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="20dp">
-
+            <!-- Total Worth -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Total Worth"
+                    android:text="@string/Total_worth"
                     android:textColor="@color/stock_symbol"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -96,11 +100,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="end"
-                    android:text="loading"
+                    android:text="@string/loading"
                     android:textColor="@color/stock_name"
                     android:textSize="18sp" />
             </LinearLayout>
-
+            <!-- Profit/Loss (%) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,7 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Profit/Loss (%)"
+                    android:text="@string/Profit_Loss"
                     android:textColor="@color/stock_symbol"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -123,11 +127,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="end"
-                    android:text="loading"
+                    android:text="@string/loading"
                     android:textColor="@color/stock_name"
                     android:textSize="18sp" />
             </LinearLayout>
-
+            <!-- Total Profit/Loss -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Total Profit/Loss"
+                    android:text="@string/Total_Profit_Loss"
                     android:textColor="@color/stock_symbol"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -150,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="end"
-                    android:text="loading"
+                    android:text="@string/loading"
                     android:textColor="@color/stock_name"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -160,7 +164,7 @@
 
 
     </com.google.android.material.card.MaterialCardView>
-
+    <!-- Bottom navigation bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
